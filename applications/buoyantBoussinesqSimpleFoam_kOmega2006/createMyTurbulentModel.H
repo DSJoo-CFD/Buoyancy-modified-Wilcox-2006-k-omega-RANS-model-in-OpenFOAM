@@ -200,7 +200,7 @@ dimensionedScalar Cbetas(laminarTransport.getOrDefault<scalar>("Cbetas", 0.09));
 dimensionedScalar SigmaK(laminarTransport.getOrDefault<scalar>("SigmaK", 0.5));
 dimensionedScalar SigmaW(laminarTransport.getOrDefault<scalar>("SigmaW", 0.6));
 dimensionedScalar Csigmad0(laminarTransport.getOrDefault<scalar>("Csigmad0", 0.125));
-dimensionedScalar Cg(laminarTransport.getOrDefault<scalar>("Cg", -2.0));
+dimensionedScalar Cg(laminarTransport.getOrDefault<scalar>("Cg", 1.0));
 dimensionedScalar Prt(laminarTransport.getOrDefault<scalar>("Prt", 0.89));
 
 Switch lowReVersion(laminarTransport.getOrDefault<Switch>("lowReVersion",false));
@@ -230,4 +230,5 @@ Info<< " " << endl;
 Info<< "kMin = " << kMin << endl;
 Info<< "kMax = " << kMax << endl;
 Info<< "omegaMin = " << omegaMin << endl;
+
 Info<< "omegaMax = " << omegaMax << endl;
