@@ -1,0 +1,4 @@
+SOURCE = \
+buoyantBoussinesqSimpleFoam_kOmega2006.C \
+
+# sources
