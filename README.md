@@ -1,17 +1,62 @@
 
-# Buoyancy-modified Wilcox (2006) (k)–(\omega) Model for Incompressible Flows
+# Buoyancy-modified Wilcox (2006) k–omega Model for Incompressible Flows
 
 ## Overview
 
-This repository provides an implementation of the **Wilcox (2006) (k)–(\omega) turbulence model** for incompressible flows with buoyancy, using the **Boussinesq approximation**.
+This repository provides an implementation of the **Wilcox (2006)k–omega turbulence model** for incompressible flows with buoyancy, using the **Boussinesq approximation**.
 The formulation follows Wilcox (2006) exactly, with buoyancy effects added consistently to the momentum and turbulence transport equations.
 
 The implementation is intended for fundamental studies of buoyancy-driven turbulence and for benchmark flows relevant to natural and mixed convection.
 
 ---
+
+The current code is built on OpenFOAM-v2412. 
+Below is a brief guide on how to use it.
+
+## 1. Install OpenFOAM 
+Follow the guidelines provided at [https://www.openfoam.com/] to install OpenFOAM. 
+
+Note: This code is not compatible with the OpenFOAM Foundation release (often labeled as v8, ..., v12) available at [openfoam.org]
+
+## 2. Set Up Your User Directory
+After installation, update your personal "~/.bashrc" file to include OpenFOAM environment variables refer to the installation guidelines. 
+
+e.g. source /usr/lib/openfoam/openfoam2412/etc/bashrc
+
+Then, create the necessary directories for running OpenFOAM by executing:
+
+  > mkdir -p $WM_PROJECT_USER_DIR/{run,applications,src}
+
+Next, overwrite the provided source code (folders named "run" and "applications") by copying the provided files into the appropriate locations.
+
+## 3. Compile the Solver
+In a Linux environment, compile the solver located in "applications/mybuoyantBoussinesqSimpleFoam" by running the following commands sequentially:
+
+  > run
+
+  > cd ../applications/buoyantBoussinesqSimpleFoam_kOmega2006
+  
+  > wclean
+  
+  > wmake
+
+## 4. Run the Examples  
+The "run" folder contains some example problems. 
+
+You can run these examples just like any conventional OpenFOAM tutorial. 
+
+Simply navigate to the example directory and execute:
+    
+  > sh ./Allclean
+  
+  > sh ./Allrun
+ 
+
+
+---
 ## Governing equations
 
-This study considers incompressible flow in which buoyancy is represented by the Boussinesq approximation.  
+This solver considers incompressible flow in which buoyancy is represented by the Boussinesq approximation.  
 The Reynolds-averaged momentum and temperature transport equations are
 
 $\frac{\partial U_i}{\partial t} + U_j \frac{\partial U_i}{\partial x_j} = - \frac{\partial P}{\partial x_i} - g_i b (T - T_0) + \frac{\partial}{\partial x_j} \left( \nu \frac{\partial U_i}{\partial x_j} - \overline{u_i u_j} \right)$
@@ -40,10 +85,9 @@ Here $S_{ij}$ is the mean strain-rate tensor, $\nu_T$ is the turbulent viscosity
 
 ---
 
-## Wilcox (2006) $k$--$\omega$ model with buoyancy
+## Wilcox (2006) k–omega model with buoyancy
 
-This study analyses the Wilcox (2006) $k$--$\omega$ turbulence model.  
-The notation for the model variables and constants follows that reference exactly, with only buoyant terms added.
+The notation for the model variables and constants follows the book of Wilcox (2006), with only buoyant terms added.
 
 The turbulent viscosity is defined as
 
@@ -89,7 +133,7 @@ $k = 0, \qquad \omega = \frac{6 \nu}{\beta_0 n^2}$
 
 where, for a cell-centred discretisation of $\omega$, $n$ is the wall-normal distance from the wall to the centre of the first off-wall grid cell.
 
-For user convenience, if the boundary condition for $\omega$ is specified as type fixedValue, regardless of the prescribed value, the code automatically replaces it with this boundary condition and applies it accordingly.
+For user convenience, if the boundary condition for $\omega$ is specified as "type fixedValue", regardless of the prescribed value, the code automatically replaces it with this boundary condition and applies it accordingly.
 
 
 ---
@@ -105,6 +149,6 @@ The repository includes example cases for:
 * Stably stratified plane channel flow
 * Internally heated convection
 
+see https://arxiv.org/abs/2512.01308
+
 ---
-* **OpenFOAM solver 구조 설명 섹션**
-* **논문 Appendix ↔ README 대응 표**
